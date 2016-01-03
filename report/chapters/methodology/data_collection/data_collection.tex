@@ -1,0 +1,67 @@
+\section{Data Collection}
+
+\subsection{GitHub REST API}
+The data on GitHub can be accessed through GitHub REST API\footnote{\url{https://developer.github.com/v3/}}. It is based on the REST architecture\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}} which uses pull strategy for data retrieval so that users should explicitly make requests to collect data. Despite the adaptability of GitHub API, there are some constraints and limitations of using it. GitHub describes the rate limiting as follows: ``For requests using Basic Authentication or OAuth, you can make up to 5,000 requests per hour. For unauthenticated requests, the rate limit allows you to make up to 60 requests per hour.''\footnote{\url{https://developer.github.com/v3/\#rate/limiting}} Thus, in order to get a higher query speed, each request for data retrieval must be signed with valid GitHub user tokens.
+
+\subsection{GHTorrent}
+In order to make it convenient enough for developers or researchers to acquire and analyze GitHub data, Gousios et al. developed \textit{GHTorrent}\footnote{\url{http://www.ghtorrent.org/}}, which is a project that aims to offer a mirror of GitHub's data and event streams to the research community as a service in a scalable manner.\cite{6224294} It provides data dumps of GitHub users, repositories, commits, comments, etc. in either MySQL or MongoDB format. Unfortunately, GHTorrent does not provide dataset of gists, so we had to retrieve Gists data by ourselves. 
+
+\subsection{Data Retrieving}
+Since the goal is to get a whole picture of the use of Gists, any Gist from any GitHub user would of interest. The Gists data were collected by leveraging GHTorrent and GitHub REST API in the following approach. 
+
+We first used GHTorrent to obtain the most recent dataset of GitHub users at the time of this study (the MongoDB dump with date 2014-03-29\footnote{\url{http://ghtorrent.org/downloads.html}}) which contained the metadata of all GitHub users then. We did some filtering to these users data because of two main concerns. First, there may exist duplicated users in the dataset. Second, there may exist unreal users in the dataset (Organizations are included in the GHTorrent user dataset\cite{Kalliamvakou:2014:PPM:2597073.2597074}). We determined a user was unreal when the value of the \textit{ext\_ref\_id} attribute for that user row in MySQL dump was NULL or empty. After filtering out the unreal users and duplicates, 2,572,370 valid users were left. 
+
+Then we could query these users' Gists. Since it would take too much time to query all Gists of all users, we finally managed to download the metadata and file content of 618,393 Gists which have 793,891 files in total. 
+
+Also, in order to know the percentage of GitHub users who used Gists, we randomly selected 562,993 users from all valid users. Among all these users, we found that 32,786 (5.8\%) of them had at least one Gist and these 32,786 users had 144,073 Gists in total. Table \ref{tb:data} lists all the data used in this study. 
+
+\begin{table}[!htb]
+ \begin{center}
+ \begin{tabular}{@{}lr} 
+    \textbf{Description}                &   \textbf{Size}\\ \hline
+    Total valid GitHub users      &   2,572,370\\
+    Downloaded Gists              &   618,393\\
+    \quad Files of downloaded Gists     &   793,891\\
+    Sampled users                 &   562,993\\
+    \quad Sampled users having Gists & 32,786\\
+    \quad Gists of sample users & 144,073\\ \hline
+ \end{tabular}
+ \end{center}
+ \caption{Data sample used in this study.}
+ \label{tb:data}
+\end{table}
+
+Table \ref{tb:gistmetadata} lists the metadata we chose to download associated with each Gist. 
+\begin{table}[!htb]
+ \begin{center}
+ \begin{tabular}{@{}ll} 
+    \textbf{Gist Metadata}	&	\textbf{Description}\\ \hline
+    Gist identifier	&	The identifier of the Gist that is unique in the system\\
+	Description	&	How the owner described the Gist\\
+	Create date & The date when the Gist was created\\
+	Last update date & The most recent date when the Gists was updated\\
+	Forks count & Number of forks for the Gist made by other users\\
+	Commits count & Number of commits pushed to the Gist\\
+	Commits history & Number of additions and deletions in the commits\\
+	Comments count & Number of comments for the Gist\\
+	Files count & Number of files contained in the Gist\\ \hline
+ \end{tabular}
+ \end{center}
+ \caption{Description of Gist metadata.}
+ \label{tb:gistmetadata}
+\end{table}
+
+One Gist can contain one or more files. The metadata of each individual file is also included in the Gist metadata, and it's listed in Table \ref{tb:filemetadata}.
+\begin{table}[!htb]
+ \begin{center}
+ \begin{tabular}{@{}ll} 
+    \textbf{Gist File Metadata}	&	\textbf{Description}\\ \hline
+    Filename & The name of the Gist file which includes the extension.\\
+    Language & The languages used in the file\\
+	MIME Type & MIME Type of the file such as application/json etc.\\ 
+	File size &	Size of the file in Bytes\\ \hline
+ \end{tabular}
+ \end{center}
+ \caption{Description of Gist file metadata.}
+ \label{tb:filemetadata}
+\end{table}

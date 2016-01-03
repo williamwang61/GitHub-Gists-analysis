@@ -1,0 +1,31 @@
+\startfirstchapter{Introduction}
+
+% An introduction about GitHub
+GitHub\footnote{\url{https://www.github.com}} is a popular source code hosting site. It enhanced the version control tool Git\footnote{\url{https://en.wikipedia.org/wiki/Git_(software)}} by combining the features of both software engineering and social networking, including event feeds, pull requests, code reviews,
+and an issue tracking mechanism\footnote{\url{https://github.com/features}}, which has greatly facilitate developers' collaboration, communication and coordination.  
+
+% Introduce Gists
+Gist is one of the many features of GitHub, which allows users to instantly share code, notes, and snippets. GitHub illustrates\footnote{\url{https://help.github.com/articles/about-gists/}} Gist as follows:
+
+\textsl{``Gists are a great way to share your work. You can share single files, parts of files, or full applications...Every gist is a Git repository, which means that it can be forked, cloned, and manipulated in every way.''}
+
+% motivations
+Since how a technology is supposed to be used might differ from how it is actually used, it would be interesting to know how Gist is actually being used, and if it's exactly what GitHub expects or the users are finding innovative ways. However, Gist has been paid little attention by researchers, and there's no existing Gists dataset available for research. Thus, a lot of questions about Gists remain unanswered. For example, how many GitHub users are using gists? Do users collaborate on Gists? What are the contents of Gists about? How large is a Gist? 
+
+A noteworthy trend is that lots of third-party applications are developed to support creation, management and sharing of Gists. For example, both \textit{GistBox}\footnote{\url{http://www.gistboxapp.com/}} and \textit{Gisto}\footnote{\url{http://www.gistoapp.com/}} are applications that help users better organize their Gists by adding additional features such as searching, tagging and sharing Gists; \textit{GistBox Clipper} allows users to create Gists from any web page; many blog sites like \textit{WordPress}\footnote{\url{http://www.wordpress.com/}} support Gists embedding either by its URL or its ID\footnote{\url{http://en.support.wordpress.com/gist/}}; many popular IDEs or text editors support Gists creation through plugins, such as Visual Studio\footnote{\url{https://marketplace.visualstudio.com/items/dbankier.vscode-gist}}, \textit{IntelliJ IDEA}\footnote{\url{https://www.jetbrains.com/idea/help/creating-gists.html}}, \textit{sublime text}\footnote{\url{https://github.com/bgreenlee/sublime-github}}, etc. All these threads imply that gists are gaining popularity among GitHub users. It's worthy to explore Gists and how developers are using them.
+
+% research questions
+In this report, an empirical study of GitHub Gists is presented. With the goal of getting a picture of what Gists are like and how they are being used, the following two research questions were addressed:
+
+\begin{itemize}
+
+  \item {\bf RQ1. What do Gists look like?}
+  
+  Although gists are gaining popularity among GitHub users, the picture of what Gists are like is still not clear. 
+
+  \item {\bf RQ2. How are Gists being used?}
+  
+  GitHub Gists was initially developed for users to write and share code snippets, but gists could be used in unexpected ways. Thus it's worthy to find out various ways of using Gists which could provide good recommendations and suggestions on how GitHub Gists could be better used.
+  
+\end{itemize}
+To answer {\bf RQ1}, both qualitative and quantitative analysis were performed around Gists contents and metadata. For the quantitative part, 750k GitHub users were sampled and 762k Gists from these users were identified. For the qualitative part of the study, a manual inspection was performed on 398 Gists randomly sampled from the above 762k Gists. To answer {\bf RQ2}, we searched the Web for evidence of how users described their use of Gists, which included a search of Websites (including blog posts) and Twitter feeds. Then these information was combined with the result of {\bf RQ1} to get a full picture of how Gists are being used.
