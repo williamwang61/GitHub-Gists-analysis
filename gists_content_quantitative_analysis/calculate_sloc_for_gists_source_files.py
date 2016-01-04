@@ -1,52 +1,54 @@
 from os import listdir
 import csv
+import math
 
-lines_code_dist = {}
-lines_total_dist = {}
-for f in listdir("cloc_result"):
-	with open("cloc_result/"+f, 'rb') as csvfile:
+code_lines = {}
+files_count = 0
+for f in listdir("gists_files_cloc_analysis_result"):
+	with open("gists_files_cloc_analysis_result/"+f, 'rb') as csvfile:
 		lines = csv.reader(csvfile)
 		header = lines.next()
-		num_files = 0
-		num_blank = 0
-		num_comment = 0
 		num_code = 0
-		num_total_lines = 0
 		for line in lines:
-			num_files += int(line[0])
-			num_blank += int(line[2])
-			num_comment += int(line[3])
+			files_count += 1
 			num_code += int(line[4])
-			num_total_lines += num_blank + num_code + num_comment
 		
-		if num_code not in lines_code_dist.keys():
-			lines_code_dist[num_code] = 1
+		if num_code not in code_lines.keys():
+			code_lines[num_code] = 1
 		else:
-			lines_code_dist[num_code] += 1
-
-		if num_total_lines not in lines_total_dist.keys():
-			lines_total_dist[num_total_lines] = 1
-		else:
-			lines_total_dist[num_total_lines] += 1
+			code_lines[num_code] += 1
 
 
-lines_code_dist_sorted = sorted(lines_code_dist.items(), key = lambda x:x[0])
+lines_code_dist_sorted = sorted(code_lines.items(), key = lambda x:x[0])
 headers = []
-for k,v in lines_code_dist_sorted.items():
+for k,v in lines_code_dist_sorted:
 	headers.append(k)
+
+code_lines_dist = {}
+code_lines_dist_cumu = {}
+last_value = 0
+for each in lines_code_dist_sorted:
+	percentage = each[1]/float(files_count)
+	code_lines_dist[each[0]] = percentage
+	cumu = percentage + last_value
+	code_lines_dist_cumu[each[0]] = cumu
+	last_value = cumu
 
 with open('stat_cloc_code_lines.csv', 'wb') as f:
 	w = csv.DictWriter(f, headers)
 	w.writeheader()
-	w.writerow(lines_code_dist)
+	w.writerow(code_lines)
+	w.writerow(code_lines_dist)
+	w.writerow(code_lines_dist_cumu)
 
-
-lines_total_dist_sorted = sorted(lines_total_dist.items(), key = lambda x:x[0])
-headers = []
-for k,v in lines_total_dist_sorted.items():
-	headers.append(k)
-
-with open('stat_cloc_total_lines.csv', 'wb') as f:
-    w = csv.DictWriter(f, headers)
+log_index = 0
+log_result = {}
+for each in headers:
+	if each >= math.pow(2,log_index):
+		log_result[log_index] = code_lines_dist_cumu[each]
+		log_index += 1
+with open('stat_cloc_code_lines_log.csv', 'wb') as f:
+    w = csv.DictWriter(f, log_result.keys())
     w.writeheader()
-    w.writerow(lines_total_dist)
+    w.writerow(log_result)
+
