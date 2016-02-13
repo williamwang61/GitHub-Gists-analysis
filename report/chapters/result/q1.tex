@@ -21,16 +21,16 @@ For those 32,786 users having at least one public Gist, Figure \ref{fig:gistprop
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/GistProportion.png}
-	\caption{Users distribution by the number of Gists owned.}
+	\caption{Cumulative distribution of the number of Gists owned by user.}
 	\label{fig:gistproportion}
 \end{figure}
 
 \subsection{Contents of Gists}
-The content of Gists can be analyzed in several different aspects, such as the number of files per Gist, the languages, the MIME type, the size. All the analysis results in this section are against the sampled 618,393 Gists or the 793,891 files in those Gists.
+The content of Gists can be analyzed in several different aspects, such as the number of files per Gist, their languages, their MIME type, their size. The results in this section are from the sampled 618,393 Gists which contained 793,891 files.
 
 \subsubsection{Number of Files per Gist}
 
-GitHub doesn't restrain the number of files in each Gist. Table \ref{tb:files} shows the distribution of all sampled Gists based on the number of files they contain. It shows that majority of Gists (86.79\%) contain only one file. 
+GitHub doesn't limit the number of files in each Gist. Table \ref{tb:files} shows the distribution of all sampled Gists based on the number of files they contain. It shows that the majority of Gists (86.79\%) contain only one file. 
 
 \begin{table}[!htb]
  \begin{center}
@@ -48,17 +48,17 @@ GitHub doesn't restrain the number of files in each Gist. Table \ref{tb:files} s
  \label{tb:files}
 \end{table}
 
-It is expected that majority of Gists contain only a few files, since Gists are supposed to record and share small code snippets. However, one surprising observation was that there also existed Gists containing a lot of files (1001 files in a Gist at most). 
+It is expected that the majority of Gists contain only a few files, since Gists are supposed to record and share small code snippets. However, one surprising observation was that there also existed Gists containing a lot of files (for example, one with 1001 files). 
 
 \subsubsection{Gist Files Types}
 I analyzed the types of Gist files by their MIME types and their languages.
 
-Figure \ref{fig:typeDist} shows the distribution of top 20 MIME types of all Gist files (there are other 93 falling into the ``Others'' category which is 0.4\%). It's obvious that text/plain dominates with 53.5\% which actually includes a variety of file types. Some programming languages are very common indicated by the MIME type, such as application/javascript (9.7\%), application/x-ruby (9.4\%), application/python (5.6\%), but we need to note that lots of programming languages fall into the text/plain category. Other common types include images (png 0.5\%, gif 0.4\%, jpeg 0.1\%), markup language text (html 3.7\%, xml 1.4\%, yaml 0.5\%), JSON data (1.7\%), etc. 
+Figure \ref{fig:typeDist} shows the distribution of top 20 MIME types of all Gist files (there are other 93 falling into the ``Others'' category which is 0.4\%). Gist files of MIME type ``text/plain'' dominates with 53.5\% which actually includes a variety of file types such as .text files, .c files, and so on. Some programming languages are very common (indicated by the MIME type), such as application/javascript (9.7\%), application/x-ruby (9.4\%), application/python (5.6\%), but we need to note that lots of programming languages fall into the text/plain category. Other common types include images (png 0.5\%, gif 0.4\%, jpeg 0.1\%), markup language text (html 3.7\%, xml 1.4\%, yaml 0.5\%), JSON data (1.7\%), etc. 
 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/typeDistribution.png}
-	\caption{Distribution of Gist files by MIME types.}
+	\caption{Distribution of MIME types by Gist files.}
 	\label{fig:typeDist}
 \end{figure}
 
@@ -67,19 +67,19 @@ The Gist file metadata provides the language attribute for each file. 257 langua
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/languageDistribution.png}
-	\caption{Distribution of Gist files by language.}
+	\caption{Distribution of languages by Gist files.}
 	\label{fig:languageDist}
 \end{figure}
 
 \subsubsection{Size of Gist Files}
 As for the size of Gist files, I looked into three metrics: size in bytes, number of lines for files of text or application MIME type, and SLOCs for source files. 
 
-Figure \ref{fig:size} shows the distribution of Gist files in terms of their size in bytes. We can see majority of Gist files are around 1KB. The median value is 714 Bytes (quartiles are 287 and 1830 bytes). There exist outliers though: 0.17\% of Gist files are over 1MB.
+Figure \ref{fig:size} shows the distribution of Gist files in terms of their size in bytes. We can see that the majority of Gist files are around 1KB. The median value is 714 Bytes (quartiles are 287 and 1830 bytes). There exist outliers though: 0.17\% of Gist files are over 1MB.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/gist_file_size_log.png}
-	\caption{Distribution of Gist files by size.}
+	\caption{Cumulative distribution of size of files in Gists.}
 	\label{fig:size}
 \end{figure}
 
@@ -88,19 +88,19 @@ We also counted the number of lines for all the text files (783,326 in total). F
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/text_files_lines.png}
-	\caption{Distribution of Gist text files by number of lines.}
+	\caption{Cumulative distribution of number of lines per Gist.}
 	\label{fig:textlines}
 \end{figure}
 
-I ran \textit{CLOC} script against all Gist files to calculate their SLOC (binary or empty files would be ignored by \textit{CLOC}). \textit{CLOC} recognizes a source file by its extension or its first line of code. If the file does not have a recognized extension or is not a recognized scripting language, it would be ignored.\footnote{\url{https://github.com/AlDanial/cloc\#How_it_works}}. Finally 778,806 text files (98.1\% of all Gist files) were detected, from which 502,242 source files (64.5\% of all Gist text files, 63.3\% of all Gist files) were recognized as Table \ref{tb:clocfiles} shows. The distribution of source files by SLOC as is shown in Figure \ref{fig:sloc}. 54.8\% of them have less than 20 SLOCs, and 92.1\% have less than 100. The median value is 18 SLOCs (quartiles are 8 and 39 SLOCs).
+I ran \textit{CLOC} script against all Gist files to calculate their SLOC (binary or empty files would be ignored by \textit{CLOC}). \textit{CLOC} recognizes a source file by its extension or its first line of code. If the file does not have a recognized extension or is not a recognized scripting language, it is ignored.\footnote{\url{https://github.com/AlDanial/cloc\#How_it_works}}. Finally 778,806 text files (98.1\% of all Gist files) were detected, from which 502,242 source files (64.5\% of all Gist text files, 63.3\% of all Gist files) were recognized as Table \ref{tb:clocfiles} shows. The distribution of source files by SLOC is shown in Figure \ref{fig:sloc}. 54.8\% of them have less than 20 SLOCs, and 92.1\% have less than 100. The median value is 18 SLOCs (quartiles are 8 and 39 SLOCs).
 
 \begin{table}[!htb]
  \begin{center}
  \begin{tabular}{@{}lr} 
     \textbf{Files}	&	\textbf{Count} \\ \hline
 	All files of 618,393 Gists downloaded &	793,891\\
-	--- Gist text files	&	778,806\\
-	-------- Gist source files &	502,242\\ \hline
+	--- text files	&	778,806\\
+	-------- source files &	502,242\\ \hline
  \end{tabular}
  \end{center}
  \caption{Gist files recognized by CLOC}
@@ -110,26 +110,26 @@ I ran \textit{CLOC} script against all Gist files to calculate their SLOC (binar
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/sloc.png}
-	\caption{Distribution of Gist source files by SLOC.}
+	\caption{Distribution of number of SLOCs of source files in Gists.}
 	\label{fig:sloc}
 \end{figure}
 
 \subsubsection{Uniqueness of Gist Files}
-\textit{CLOC} is able to detect uniqueness for text files based on \textit{Digest:MD5}\footnote{\url{https://github.com/gisle/digest-md5}}. By taking advantage of that, I performed duplicate detection against all Gist files. Since \textit{CLOC} cannot detect duplicates for binary files, it only analyzed all the 778,806 text files from which 759,586 (97.5\% of all text files) files were detected as unique. It means that 2.5\% of text Gist files were duplicates.
+\textit{CLOC} is able to detect uniqueness for text files based on \textit{Digest:MD5}\footnote{\url{https://github.com/gisle/digest-md5}}. By taking advantage of that, I performed duplicate detection against all Gist files. Since \textit{CLOC} does not detect duplicates for binary files, it only analyzed all the 778,806 text files from which 759,586 (97.5\% of all text files) files were detected as unique. It means that 2.5\% of text Gist files were duplicates.
 
 \subsection{Activity}
-Since Gists are like a GitHub repositories, we can trace users' activities against them, such as number of commits, number of comments, times of being forked, etc. As Figure \ref{fig:commits} shows, 62.9\% of Gists had a single commit. 32.1\% had 2 to 5 commits, and only 1.85\% of Gists had more than 10 commits. This result is also verified by the distribution of days between the creation the latest update for each Gist, which is shown in Figure \ref{fig:days}. We can see the creation and the latest update of 83.7\% of Gists happened at the same day. 
+Since a Gist is like a GitHub repository, we can trace its user activities, such as number of commits, number of comments, times of being forked, etc. As Figure \ref{fig:commits} shows, 62.9\% of Gists had a single commit. 32.1\% had 2 to 5 commits, and only 1.85\% of Gists had more than 10 commits. This result is also verified by the distribution of days between the creation the latest update for each Gist, which is shown in Figure \ref{fig:days}. We can see the creation and the latest update of 83.7\% of Gists happened at the same day. 
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/commits.png}
-	\caption{Distribution of Gists by number of commits.}
+	\caption{Distribution of number of commits per Gist.}
 	\label{fig:commits}
 \end{figure}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/date_diff.png}
-	\caption{Distribution of of Gists by days between creation and latest update.}
+	\caption{Distribution of days between creation and latest update per Gist.}
 	\label{fig:days}
 \end{figure}
 
@@ -145,7 +145,7 @@ In terms of forks, 94.6\% of Gists have never been forked, and 4.0\% of Gists ha
     $\geq$ 3 &   0.7\%\\ \hline
  \end{tabular}
  \end{center}
- \caption{Distribution of Gists by number of forks.}
+ \caption{Distribution of number of forks per Gist.}
  \label{tb:forks}
 \end{table}
 
@@ -160,18 +160,18 @@ In terms of forks, 94.6\% of Gists have never been forked, and 4.0\% of Gists ha
     $\geq$ 4 &   1.0\%\\ \hline
  \end{tabular}
  \end{center}
- \caption{Distribution of Gists by number of comments.}
+ \caption{Distribution of number of comments per Gist.}
  \label{tb:comments}
 \end{table}
 
 \subsection{Manual Inspection of Gists Content}
 
-I manually inspected 400 randomly sampled Gists by assigning non-exclusive labels to each of them based on two aspects: the content of a Gist as a whole, and the relationships between files within a Gist. 
+I manually inspected 400 randomly sampled Gists by assigning non-mutually-exclusive labels to each of them based on two aspects: the content of a Gist as a whole, and the relationships between files within a Gist. 
 
 \subsubsection{Gists Content}
-During categorizing these 400 Gists based on content with the labels shown in Table \ref{tb:gistcontentlabels}, It was observed that the contents of Gists were usually very short and demonstrated a big variety of uses. Code is expectedly the most dominant use, but I also found lots of other uses, such as blogs, configuration information, logs, data, letters, or even a restaurant menu. I also found Gist written in several other languages besides English. Moreover, I observed that the MIME type or language of a Gist file might not be enough to understand a Gist. For example, source code and plain text are often mixed together.
+During categorizing these 400 Gists based on content with the labels shown in Table \ref{tb:gistcontentlabels}, It was observed that the contents of Gists were usually very short and demonstrated a big variety of uses. Code is as expected the most dominant use, but I also found lots of other uses, such as blogs, configuration information, logs, data, letters, and even a restaurant menu. I also found Gist written in several other languages besides English. Moreover, I observed that the MIME type or language of a Gist file might not be enough to understand a Gist. For example, source code and plain text are often mixed together within the same file.
 
-The result of categorizing is shown in Table \ref{tb:labels}. Note that the sum of all labels are more than 100\% because a Gist can be assigned several labels. It's not surprising that most of Gists (79.25\%) contain code, including complete programs, functions, code fragments, classes, test code. However, other types of Gists content cannot be dismissed: Log (7.5\%), Blog (1.5\%), Non-technical (1.5\%), etc.
+The result of this categorizing is shown in Table \ref{tb:labels}. Note that the sum of all labels are more than 100\% because a Gist can be assigned several labels. It's not surprising that most Gists (79.25\%) contain code, including complete programs, functions, code fragments, classes, test code. However, other types of Gists content cannot be dismissed: Log (7.5\%), Blog (1.5\%), Non-technical (1.5\%), etc.
 
 \begin{table}[!htb]
  \begin{center}
@@ -200,7 +200,7 @@ The result of categorizing is shown in Table \ref{tb:labels}. Note that the sum 
 \end{table}
 
 \subsubsection{Files Relationships Within One Gist}
-A Gist can have more than one file. When a Gist has multiple files, I observed that they were usually related. The 400 Gists were categorized with labels shown in Table \ref{tb:gistfilerelationshiplabels} to show the relationships between the files within each Gist, and the result is shown in Table \ref{tb:relationship}. We can see most Gists contained only one file. For those having multiple files, they spread approximately uniformly among different categories. Only 3.25\% of Gists have multiple files that are not related to each other. 
+A Gist can have more than one file (Among the 400 Gists sampled, 51 Gists contained multiple files). When a Gist has multiple files, I observed that they were usually related. The 400 Gists were categorized with labels shown in Table \ref{tb:gistfilerelationshiplabels} to show the relationships between the files within each Gist, and the result is shown in Table \ref{tb:relationship}. We can see most Gists contained only one file. For those having multiple files, they spread approximately uniformly among different categories. Only 3.25\% of Gists have multiple files that are not related to each other. 
 
 \begin{table}[!htb]
  \begin{center}

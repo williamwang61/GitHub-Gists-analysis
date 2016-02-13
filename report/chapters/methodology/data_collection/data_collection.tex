@@ -1,17 +1,17 @@
 \section{Data Collection}
 
 \subsection{GitHub REST API}
-The data on GitHub can be accessed through GitHub REST API\footnote{\url{https://developer.github.com/v3/}}. It is based on the REST architecture\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}} which uses pull strategy for data retrieval so that users should explicitly make requests to collect data. Despite the adaptability of GitHub API, there are some constraints and limitations of using it. GitHub describes the rate limiting as follows: ``For requests using Basic Authentication or OAuth, you can make up to 5,000 requests per hour. For unauthenticated requests, the rate limit allows you to make up to 60 requests per hour.''\footnote{\url{https://developer.github.com/v3/\#rate/limiting}} Thus, in order to get a higher query speed, each request for data retrieval must be signed with valid GitHub user tokens.
+The data on GitHub can be accessed through GitHub REST API\footnote{\url{https://developer.github.com/v3/}} which is based on the REST architecture\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}}. Despite the adaptability of GitHub API, it has some limitations on the number of requests the users can make. GitHub describes the rate limiting as follows: ``For requests using Basic Authentication or OAuth, you can make up to 5,000 requests per hour. For unauthenticated requests, the rate limit allows you to make up to 60 requests per hour.''\footnote{\url{https://developer.github.com/v3/\#rate/limiting}} Thus, in order to get a higher query speed, each request for data retrieval must be signed with valid GitHub user tokens.
 
 \subsection{GHTorrent}
-In order to make it convenient enough for developers or researchers to acquire and analyze GitHub data, Gousios et al. developed \textit{GHTorrent}\footnote{\url{http://www.ghtorrent.org/}}, which is a project that aims to offer a mirror of GitHub's data and event streams to the research community as a service in a scalable manner.\cite{6224294} It provides data dumps of GitHub users, repositories, commits, comments, etc. in either MySQL or MongoDB format. Unfortunately, GHTorrent does not provide dataset of gists, so Gists have to be retrieved through GitHub REST API. 
+In order to make it convenient enough for developers and researchers to acquire and analyze GitHub data, Gousios et al. developed \textit{GHTorrent}\footnote{\url{http://www.ghtorrent.org/}}, which is a project that aims to offer a mirror of GitHub's data and event streams to the research community as a service in a scalable manner.\cite{6224294} It provides data dumps of GitHub users, repositories, commits, comments, etc. in both MySQL and MongoDB format. Unfortunately, GHTorrent does not provide dataset of gists, so for this research Gists had to be retrieved through GitHub's REST API. 
 
 \subsection{Data Retrieving}
 Since the goal is to get a whole picture of the use of Gists, any Gist from any GitHub user would of interest. The Gists data were collected by leveraging GHTorrent and GitHub REST API in the following approach. 
 
-First GHTorrent was used to obtain the most recent dataset of GitHub users at the time of this study (the MongoDB dump with date 2014-03-29\footnote{\url{http://ghtorrent.org/downloads.html}}) which contained the metadata of all GitHub users then. These user data had to be filtered because of two main concerns. First, there may exist duplicated users in the dataset. Second, there may exist unreal users in the dataset (Organizations are included in the GHTorrent user dataset\cite{Kalliamvakou:2014:PPM:2597073.2597074}). A user was determined as unreal when the value of the \textit{ext\_ref\_id} attribute for that user row in MySQL dump was NULL or empty. After filtering out the unreal users and duplicates, 2,572,370 valid users were left. 
+First GHTorrent was used to obtain the most recent dataset of GitHub users at the time of this study (the MongoDB dump with date 2014-03-29\footnote{\url{http://ghtorrent.org/downloads.html}}) which contained the metadata of all GitHub users. These user data had to be filtered because of two main concerns. First, there may exist duplicated users in the dataset. Second, there exist non-individual user accounts in the dataset (Organizations are included as users in the GHTorrent user dataset\cite{Kalliamvakou:2014:PPM:2597073.2597074}). A user was determined as non-individual when the value of the \textit{ext\_ref\_id} attribute for that user row in MySQL dump was NULL or empty. After filtering out the non-individual users and duplicates, 2,572,370 valid users were left. 
 
-Then these users' Gists were queried. Since it would take too much time to query all Gists of all users, I finally managed to download the metadata and file content of 618,393 Gists which have 793,891 files in total. 
+Then I started querying the metadata and content of the Gists from these users by using GitHub's API. I successfully downloaded the metadata of 618,393 Gists as well as 793,891 files contained in these Gists. (Note that it was not recorded how many users these 618,393 Gists were from.) 
 
 Also, in order to know the percentage of GitHub users who used Gists, I randomly selected 562,993 users from all valid users. Among all these users, 32,786 (5.8\%) of them were found to have at least one Gist and these 32,786 users had 144,073 Gists in total. Table \ref{tb:data} lists all the data used in this study. 
 
@@ -31,7 +31,7 @@ Also, in order to know the percentage of GitHub users who used Gists, I randomly
  \label{tb:data}
 \end{table}
 
-Table \ref{tb:gistmetadata} lists the metadata chosen to download associated with each Gist. 
+Table \ref{tb:gistmetadata} lists the metadata associated with each Gist that was downloaded. 
 \begin{table}[!htb]
  \begin{center}
  \begin{tabular}{@{}ll} 

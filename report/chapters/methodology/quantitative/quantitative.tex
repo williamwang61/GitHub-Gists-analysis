@@ -1,6 +1,6 @@
 \section{Quantitative Analysis of Gists Metadata and Content}
 
-Based on the obtained gists metadata and contents, I made a series of quantitative analysis using statistics, trying to find some patterns and characteristics of gists so as to get a overview of what gists look like. Not only did I analyze the metadata of the sampled 618,393 Gists and Gist files but also inspected the actual content of the 793,891 Gist files.
+With the goal of finding some patterns and characteristics of Gists so as to get a overview of what Gists look like. I quantitatively analyzed the Gists data that were downloaded. Not only did I analyze the metadata of the sampled 618,393 Gists but also inspected the actual content of the 793,891 Gist files.
 
 \subsection{Analysis of Gists Metadata}
 
@@ -10,7 +10,7 @@ The quantitative analysis for Gists metadata was based on the a series of sub-qu
 
 	\item How many files are there in a Gist?
 
-	\item How large is a Gist usually?
+	\item How large is a Gist?
 
 	\item What languages are used in Gists?
 
@@ -21,4 +21,4 @@ The quantitative analysis for Gists metadata was based on the a series of sub-qu
 
 \subsection{Analysis of Gists Files}
 
-As for Gist files, apart from looking into their size metadata, I also calculated the number of lines for each file of text or application MIME type. Then further analysis was made by taking advantage of the source code analyzing tool \textit{CLOC}\footnote{\url{https://github.com/AlDanial/cloc}}. \textit{CLOC} is able to detect uniqueness of text files, as well as calculate source lines of code (SLOC\footnote{\url{https://en.wikipedia.org/wiki/Source_lines_of_code}}) for source files in many widely used programming languages\footnote{\url{https://github.com/AlDanial/cloc\#Languages}}. 
+I first analyzed the size metadata of all Gists files downloaded. Then for each file whose MIME type is ``text'' or ``application'',  I calculated its number of lines. Further analysis was made by taking advantage of the source code analyzing tool \textit{CLOC}\footnote{\url{https://github.com/AlDanial/cloc}}. \textit{CLOC} is able to detect uniqueness of text files based on \textit{Digest::MD5}\footnote{\url{http://search.cpan.org/dist/Digest-MD5/MD5.pm}}, as well as calculate source lines of code (SLOC\footnote{\url{https://en.wikipedia.org/wiki/Source_lines_of_code}}) for source files in many widely used programming languages\footnote{\url{https://github.com/AlDanial/cloc\#Languages}}. 
