@@ -1,6 +1,4 @@
-# GitHub_Gists_Analysis
-
-## Abstract
+## GitHub Gists Analysis
 
 GitHub is a popular source code hosting site which serves as not only a collaborative coding platform but also a social network. Various unique features of GitHub have greatly facilitated developers' collaboration, communication, and coordination, which has given rise to many research in different angles. One of GitHub features is Gists, which is expected to be a tool for instantly sharing code, notes, and snippets. However, it hasn't been paid much attention by researchers. 
 
